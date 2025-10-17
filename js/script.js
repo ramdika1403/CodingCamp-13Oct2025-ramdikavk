@@ -1,36 +1,3 @@
-function editTask(index) {
-  // Isi form dengan data task yang akan diedit
-  const task = tasks[index];
-  document.getElementById("todo-input").value = task.title;
-  document.getElementById("date-input").value = task.date;
-  document.getElementById("desc-input").value = task.desc;
-  editIndex = index;
-  setAddButtonToEdit();
-}
-
-function setAddButtonToEdit() {
-  const btn = document.querySelector(".btn-add");
-  if (btn) {
-    btn.textContent = "Edit";
-    btn.classList.remove("bg-green-500");
-    btn.classList.add("bg-blue-500");
-  }
-}
-
-function setAddButtonToAdd() {
-  const btn = document.querySelector(".btn-add");
-  if (btn) {
-    btn.textContent = "+";
-    btn.classList.remove("bg-blue-500");
-    btn.classList.add("bg-green-500");
-  }
-}
-
-function deleteTask(index) {
-  // Remove task at given index
-  tasks.splice(index, 1);
-  renderTasks();
-}
 // This is a simple JavaScript file for a Todo List application
 let tasks = [];
 let filterType = "all"; // 'all', 'completed', 'not_completed'
@@ -119,6 +86,46 @@ function completeTask(index) {
   renderTasks();
 }
 
+function editTask(index) {
+  // Isi form dengan data task yang akan diedit
+  const task = tasks[index];
+  document.getElementById("todo-input").value = task.title;
+  document.getElementById("date-input").value = task.date;
+  document.getElementById("desc-input").value = task.desc;
+  editIndex = index;
+  setAddButtonToEdit();
+}
+
+function setAddButtonToEdit() {
+  const btn = document.querySelector(".btn-add");
+  if (btn) {
+    btn.textContent = "Edit";
+    btn.classList.remove("bg-green-500");
+    btn.classList.add("bg-blue-500");
+  }
+}
+
+function setAddButtonToAdd() {
+  const btn = document.querySelector(".btn-add");
+  if (btn) {
+    btn.textContent = "add";
+    btn.classList.remove("bg-blue-500");
+    btn.classList.add("bg-green-500");
+  }
+}
+
+function deleteTask(index) {
+  // Remove task at given index
+  tasks.splice(index, 1);
+  renderTasks();
+}
+
+function deleteAllTask() {
+  // Remove all tasks
+  tasks = [];
+  renderTasks();
+}
+
 function renderTasks() {
   // Function to render tasks on the page
   const taskList = document.getElementById("todo-list");
@@ -129,13 +136,15 @@ function renderTasks() {
     taskList.innerHTML = "<p>No tasks available</p>";
     return;
   }
-  displayTasks.forEach((task, index) => {
+  displayTasks.forEach((task) => {
+    // Cari index asli task di array tasks
+    const originalIndex = tasks.indexOf(task);
     const statusIcon = task.completed
       ? '<span class="text-green-500 mr-2">&#10003;</span>'
       : '<span class="text-red-500 mr-2">&#10007;</span>';
     const toggleBtn = task.completed
-      ? `<button type="button" class="px-[10px] py-[2px] bg-green-500 text-white rounded-md mr-2" title="Tandai belum selesai" onclick="completeTask(${index});">&#10003;</button>`
-      : `<button type="button" class="px-[10px] py-[2px] bg-red-500 text-white rounded-md mr-2" title="Tandai selesai" onclick="completeTask(${index});">&#10007;</button>`;
+      ? `<button type="button" class="px-[10px] py-[2px] bg-green-500 text-white rounded-md mr-2" title="Tandai belum selesai" onclick="completeTask(${originalIndex});">&#10003;</button>`
+      : `<button type="button" class="px-[10px] py-[2px] bg-red-500 text-white rounded-md mr-2" title="Tandai selesai" onclick="completeTask(${originalIndex});">&#10007;</button>`;
     taskList.innerHTML += `
         <li class="todo-item flex justify-between items-center bg-white p-4 mb-2">
             <div class="flex-1">
@@ -148,8 +157,8 @@ function renderTasks() {
             </div>
             <div class="flex gap-2">
                 ${toggleBtn}
-                <button type="button" class="px-[10px] py-[2px] bg-blue-500 text-white rounded-md mr-2" onclick="editTask(${index});">Edit</button>
-                <button class="px-[10px] py-[2px] bg-red-500 text-white rounded-md" onclick="deleteTask(${index});">Delete</button>
+                <button type="button" class="px-[10px] py-[2px] bg-blue-500 text-white rounded-md mr-2" onclick="editTask(${originalIndex});">Edit</button>
+                <button class="px-[10px] py-[2px] bg-red-500 text-white rounded-md" onclick="deleteTask(${originalIndex});">Delete</button>
             </div>
         </li>
     `;
