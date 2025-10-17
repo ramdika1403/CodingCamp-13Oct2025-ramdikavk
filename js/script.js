@@ -108,7 +108,7 @@ function setAddButtonToEdit() {
 function setAddButtonToAdd() {
   const btn = document.querySelector(".btn-add");
   if (btn) {
-    btn.textContent = "add";
+    btn.textContent = "Add";
     btn.classList.remove("bg-blue-500");
     btn.classList.add("bg-green-500");
   }
