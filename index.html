@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To do List</title>
+
+    <!-- CSS External -->
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!-- CSS Tailwind -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+
+  <body>
+    <main>
+      <!-- Title -->
+      <header>
+        <h1 class="title-h1 text-center">TO DO LIST</h1>
+      </header>
+
+      <!-- Form Todo -->
+      <form>
+        <div class="flex gap-2">
+          <div class="flex-1">
+            <label for="todo-input" class="form-label">Add a new task</label>
+            <input
+              type="text"
+              id="todo-input"
+              class="form-input w-full"
+              placeholder="Enter your task here"
+            />
+          </div>
+          <div class="flex-1">
+            <label for="desc-input" class="form-label">Task Description</label>
+            <textarea
+              id="desc-input"
+              class="form-input w-full text-sm resize-y min-h-[60px] max-h-[160px]"
+              placeholder="Write a short description for this task (optional)"
+              maxlength="200"
+              rows="3"
+            ></textarea>
+          </div>
+          <div>
+            <label for="date-input" class="form-label">Date</label>
+            <input
+              type="Date"
+              id="date-input"
+              class="form-input"
+              placeholder="Enter your task here"
+            />
+          </div>
+        </div>
+        <div>
+          <button
+            type="button"
+            class="btn-add bg-green-500"
+            onclick="addTask();"
+          >
+            +
+          </button>
+        </div>
+      </form>
+
+      <!-- List Todo -->
+      <section>
+        <div class="action-container flex gap-2 items-center">
+          <div class="relative">
+            <button
+              type="button"
+              class="btn-filter"
+              onclick="toggleFilterMenu();"
+            >
+              Filter
+            </button>
+            <div
+              id="filter-menu"
+              class="hidden absolute left-0 mt-2 w-40 bg-white border rounded shadow z-10"
+            >
+              <button
+                type="button"
+                class="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                onclick="setFilter('all');"
+              >
+                All Task
+              </button>
+              <button
+                type="button"
+                class="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                onclick="setFilter('completed');"
+              >
+                Task Completed
+              </button>
+              <button
+                type="button"
+                class="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                onclick="setFilter('not_completed');"
+              >
+                Task Not Completed
+              </button>
+            </div>
+          </div>
+          <button type="button" class="btn-delete" onclick="removeAllTask();">
+            Delete All
+          </button>
+        </div>
+
+        <header>
+          <h2 class="title-h2">Task List</h2>
+        </header>
+
+        <div id="todo-list">
+          <p>No tasks available</p>
+        </div>
+      </section>
+    </main>
+
+    <!-- Javascript External -->
+    <script src="js/script.js"></script>
+  </body>
+</html>
